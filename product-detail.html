@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Product Details</title>
   <link rel="stylesheet" href="product.css">
+  <style>
+    .confirmation-box {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #f0f0f0;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+    .confirmation-box button {
+      margin-top: 10px;
+      padding: 5px 15px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
 
@@ -22,28 +41,58 @@
 
   <div class="order-form">
     <h2>Order Now</h2>
-    <form  action = "order-success.html" autocomplete = "off">
-      <input type="text" placeholder="Your Name" required><br><br>
-       <input type="text" id = "order-product" placeholder="Product Name" required><br><br>
-        <input type="text" id = "order-price" placeholder="Product-price" required><br><br>
-      <input type="text" placeholder="Address" required><br><br>
-      <input  type="text" placeholder="Phone Number" required><br><br>
-     <button type="submit" class = "btn1">Submit Order</button>
+    <form id="order-form" autocomplete="off">
+      <input type="text" id="customer-name" placeholder="Your Name" required><br><br>
+      <input type="text" id="order-product" placeholder="Product Name" required><br><br>
+      <input type="text" id="order-price" placeholder="Product-price" required><br><br>
+      <input type="text" id="address" placeholder="Address" required><br><br>
+      <input type="text" id="phone" placeholder="Phone Number" required><br><br>
+      <button type="submit" class="btn1">Submit Order</button>
     </form>
   </div>
-  <script>
-    
-   
-    const params = new URLSearchParams(window.location.search);
-    document.getElementById("product-title").innerText = params.get("title");
-    document.getElementById("product-desc").innerText = params.get("desc");
-    document.getElementById("product-price").innerText = "$" + params.get("price");
-    document.getElementById("product-img").src = params.get("img");
-    document.getElementById("order-product").value = params.get("title");
-    document.getElementById("order-price").value = params.get("price");  
-    </script>
 
- 
+  <div class="confirmation-box" id="confirmation-box">
+    <p id="confirmation-message"></p>
+    <button onclick="closeBox()">OK</button>
+  </div>
+
+  <script>
+    // Set product details from URL params
+    const params = new URLSearchParams(window.location.search);
+    const title = params.get("title") || "Product Name";
+    const desc = params.get("desc") || "Product description will appear here...";
+    const price = params.get("price") || "0.00";
+    const img = params.get("img") || "";
+
+    document.getElementById("product-title").innerText = title;
+    document.getElementById("product-desc").innerText = desc;
+    document.getElementById("product-price").innerText = "$" + price;
+    document.getElementById("product-img").src = img;
+    document.getElementById("order-product").value = title;
+    document.getElementById("order-price").value = price;
+
+    // Handle form submit
+    const form = document.getElementById("order-form");
+    const box = document.getElementById("confirmation-box");
+    const message = document.getElementById("confirmation-message");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault(); // prevent page reload
+
+      const customer = document.getElementById("customer-name").value;
+      const product = document.getElementById("order-product").value;
+      const address = document.getElementById("address").value;
+
+      message.innerText = `Hello ${customer}, your order for "${product}" has been received and will be delivered to "${address}".`;
+      box.style.display = "block";
+
+      form.reset(); // optional: clear the form
+    });
+
+    function closeBox() {
+      box.style.display = "none";
+    }
+  </script>
 
 </body>
 </html>
