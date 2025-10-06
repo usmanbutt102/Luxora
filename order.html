@@ -1,86 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #faf9f6;
-  color: #333;
-  line-height: 1.6;
-  
-}
-
-
-.nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #faf9f6;
-  padding: 15px 30px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-.nav h1 {
-  color: #800020;
-}
-.nav .links a {
-  margin: 0 15px;
-  text-decoration: none;
-  color: #333;
-  font-weight: bold;
-}
-
-.nav .links a:hover {
-  color: #ff9800;
-}
-
-
-.hero {
-  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('about-bg.jpg');
-  color: #fff;
-  text-align: center;
-  padding: 80px 20px;
-}
-.hero h1 {
-  font-size: 48px;
-  margin-bottom: 10px;
-}
-.hero p {
-  font-size: 20px;
-}
-
-.value {
-  background: #800020;
-  color: #fff;
-  padding: 18px 50px;
-  border-radius: 6px;
-  font-weight: bold;
-  margin-left:600px;
-  margin-top:80px;
-  cursor: pointer;
-}
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Success</title>
+  <link rel="stylesheet" href="product.css">
 </head>
 <body>
-    <div class="nav">
-    <div class="head">
-      <h1>Luxora</h1>
-    </div>
-    <div class="links">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-     
-    </div>
+
+  <div class="order-success-container">
+    <h1>Order Confirmed!</h1>
+    <p id="order-message"></p>
+    <a href="index.html"><button>Back to Home</button></a>
   </div>
 
- 
-  <section class="hero">
-    <h1>Congratulations !</h1>
-    <p>Your Order is booked you will recive your order in just 1 week </p>
-  </section>
-  <a href="ind.php"><button class = "value">Back Home</button></a>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get("customer_name");
+    const product = params.get("product_name");
+    const address = params.get("address");
+
+    document.getElementById("order-message").innerText =
+      `Hello ${name}, your order "${product}" has been received and will be delivered to "${address}".`;
+  </script>
+
 </body>
 </html>

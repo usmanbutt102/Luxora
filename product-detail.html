@@ -21,12 +21,13 @@
 
   <div class="order-form">
     <h2>Order Now</h2>
-    <form id="order-form" autocomplete="off">
-      <input type="text" placeholder="Your Name" required><br><br>
-      <input type="text" id="order-product" placeholder="Product Name" required><br><br>
-      <input type="text" id="order-price" placeholder="Product Price" required><br><br>
-      <input type="text" placeholder="Address" required><br><br>
-      <input type="text" placeholder="Phone Number" required><br><br>
+    <!-- form ab order-success.html page par submit karega -->
+    <form id="order-form" method="GET" action="order-success.html" autocomplete="off">
+      <input name="customer_name" type="text" placeholder="Your Name" required><br><br>
+      <input name="product_name" type="text" id="order-product" placeholder="Product Name" required><br><br>
+      <input name="product_price" type="text" id="order-price" placeholder="Product Price" required><br><br>
+      <input name="address" type="text" placeholder="Address" required><br><br>
+      <input name="phone" type="text" placeholder="Phone Number" required><br><br>
       <button type="submit" class="btn1">Submit Order</button>
     </form>
   </div>
@@ -40,20 +41,6 @@
     document.getElementById("product-img").src = params.get("img");
     document.getElementById("order-product").value = params.get("title");
     document.getElementById("order-price").value = params.get("price");  
-
-    // Handle form submission
-    document.getElementById("order-form").addEventListener("submit", function(e) {
-      e.preventDefault(); // prevent page reload
-
-      const name = this.querySelector('input[placeholder="Your Name"]').value;
-      const product = this.querySelector('#order-product').value;
-      const address = this.querySelector('input[placeholder="Address"]').value;
-
-      alert(`Hello ${name}, your order "${product}" has been received and will be delivered to "${address}".`);
-      
-      // Optional: clear form after submission
-      this.reset();
-    });
   </script>
 
 </body>
